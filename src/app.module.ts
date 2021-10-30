@@ -16,7 +16,7 @@ import { PdfService } from './pdf/pdf.service';
 
 @Module({
   imports: [  
-    TypeOrmModule.forRootAsync({
+    /*TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'mysql',
@@ -32,7 +32,24 @@ import { PdfService } from './pdf/pdf.service';
         logger: 'file',
         connectTimeout: 10000,
         ETIMEDOUT: 20 * 10000
-      }),
+      }), */
+
+      TypeOrmModule.forRootAsync({
+        inject: [ConfigService],
+        useFactory: (config: ConfigService) => ({
+          type: 'mysql',
+          host: 'localhost',
+          port: 3306,
+          username: 'root',
+          password: '',
+          database: 'highsecu_database',
+          entities: [ Shift, Client, User, Report, News, Workedhours, Visit, GuardsLocation ],
+          autoLoadEntities: true,
+          synchronize: true,
+          logging: true,
+          logger: 'file',
+          connectTimeout: 10000,
+        }),
     }),
     ConfigModule.forRoot({
       isGlobal: true,
