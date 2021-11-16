@@ -15,8 +15,8 @@ export const setDefaultUser = async (config: ConfigService) => {
         phone: config.get<string>(DEFAULT_USER_PHONE),
         roles: ['Admin']
     }
-    
-    await getConnection().transaction(async transaction => {
+    //crea un usuario, no se por que, pero lo hace.
+    /*await getConnection().transaction(async transaction => {
         defaultUser = await transaction
             .createQueryBuilder()
             .select("user")
@@ -25,8 +25,7 @@ export const setDefaultUser = async (config: ConfigService) => {
             .getOne();
         if(!defaultUser) {
             const adminUser = transaction.create(User,user)
-    
             return await transaction.save(adminUser)
         }
-    })
+    })*/
 }
